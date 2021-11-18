@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- tree view -->
+        <record id="view_vit_transfer_tree" model="ir.ui.view">
+            <field name="name">vit_transfer_tree</field>
+            <field name="model">vit.transfer</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Transfer">
+                    <field name="name" />
+                    <field name="trx_date" />
+                    <field name="notes" />
+                    <field name="state" />
+                    <field name="destination_account_number" />
+                    <field name="amount" />
+                    <field name="amount_curr" />
+                    <field name="currency_id" />
+                    <field name="partner_id" />
+                    <field name="destination_partner_id" />
+                </tree>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="view_vit_transfer_form" model="ir.ui.view">
+            <field name="name">vit_transfer_form</field>
+            <field name="model">vit.transfer</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Transfer">
+                    <header>
+                        <button string="Confirm" type="object" name="action_confirm" states="draft" />
+                        <button string="Mark as Done" type="object" name="action_done" states="open" />
+                        <button string="Reset to Draft" type="object" name="action_draft" states="open,done" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Transfer Name"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="trx_date" />
+                                <field name="notes" />
+                                <field name="destination_account_number" />
+                                <field name="amount" />
+                                <field name="amount_curr" />
+                            </group>
+                            <group>
+                                <field name="currency_id" />
+                                <field name="partner_id" />
+                                <field name="destination_partner_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search -->
+        <record id="view_vit_transfer_search" model="ir.ui.view">
+            <field name="name">vit_transfer</field>
+            <field name="model">vit.transfer</field>
+            <field name="arch" type="xml">
+                <search string="Transfer">
+
+                    <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
+                    <filter string="Trx date" name="filter_by_trx_date" domain="[('trx_date','=','')]" />
+                    <filter string="Notes" name="filter_by_notes" domain="[('notes','=','')]" />
+                    <filter string="State" name="filter_by_state" domain="[('state','=','')]" />
+                    <filter string="Destination account number" name="filter_by_destination_account_number" domain="[('destination_account_number','=','')]" />
+                    <filter string="Amount" name="filter_by_amount" domain="[('amount','=','')]" />
+                    <filter string="Amount curr" name="filter_by_amount_curr" domain="[('amount_curr','=','')]" />
+                    <field name="name" select="True"/>
+                    <field name="trx_date" select="True"/>
+                    <field name="notes" select="True"/>
+                    <field name="state" select="True"/>
+                    <field name="destination_account_number" select="True"/>
+                    <field name="amount" select="True"/>
+                    <field name="amount_curr" select="True"/>
+                    <field name="currency_id" select="True"/>
+                    <field name="partner_id" select="True"/>
+                    <field name="destination_partner_id" select="True"/>
+                    <group string="Group By..">
+                        <filter string="Currency" domain="[]" name="group_by_currency_id" context="{'group_by':'currency_id'}"/>
+                        <filter string="Partner" domain="[]" name="group_by_partner_id" context="{'group_by':'partner_id'}"/>
+                        <filter string="Destination partner" domain="[]" name="group_by_destination_partner_id" context="{'group_by':'destination_partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!-- kanban , to show image, please add image_small in the model -->
+        <record id="view_vit_transfer_kanban" model="ir.ui.view" >
+            <field name="name">vit_transfer</field>
+            <field name="model">vit.transfer</field>
+            <field name="arch" type="xml">
+                <kanban version="7.0">
+                    <field name="id" />
+                    <field name="name" />
+                    <field name="trx_date" />
+                    <field name="notes" />
+                    <field name="state" />
+                    <field name="destination_account_number" />
+                    <field name="amount" />
+                    <field name="amount_curr" />
+                    <field name="currency_id" />
+                    <field name="partner_id" />
+                    <field name="destination_partner_id" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open"><field name="name"/></a>
+                                    </h4>
+                                    <ul>
+
+                                        <li>
+                                            <span class="text-muted">Currency</span> <field name="currency_id"></field>
+                                        </li>
+
+
+                                        <li>
+                                            <span class="text-muted">Partner</span> <field name="partner_id"></field>
+                                        </li>
+
+
+                                        <li>
+                                            <span class="text-muted">Destination partner</span> <field name="destination_partner_id"></field>
+                                        </li>
+
+                                        <li>
+                                            <span class="text-muted">Trx date</span> <field name="trx_date"></field>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <!-- calendar if a date field exists -->
+        <record id="view_vit_transfer_cal" model="ir.ui.view">
+            <field name="name">vit_transfer_cal</field>
+            <field name="model">vit.transfer</field>
+            <field name="arch" type="xml">
+                <calendar string="Transfer" date_start="trx_date">
+                    <field name="name" />
+                </calendar>
+            </field>
+        </record>
+        <!-- graph -->
+        <record id="view_vit_transfer_graph" model="ir.ui.view">
+            <field name="name">vit_transfer</field>
+            <field name="model">vit.transfer</field>
+            <field name="arch" type="xml">
+                <graph string="Transfer" type="bar">
+                    <field name="currency_id"/>
+                </graph>
+            </field>
+        </record>
+        <!-- action window -->
+        <record id="action_vit_transfer" model="ir.actions.act_window">
+            <field name="name">Transfer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vit.transfer</field>
+            <field name="view_mode">kanban,tree,form,calendar,graph</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Transfer
+                </p><p>
+                Click the Create button to add a new Transfer
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_vit_transfer" name="Transfer" parent="E-Wallet_sub_menu" action="action_vit_transfer" sequence="60"/>
+    </data>
+</odoo>

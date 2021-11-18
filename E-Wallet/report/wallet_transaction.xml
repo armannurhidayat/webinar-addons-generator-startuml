@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- report qweb view -->
+        <report id="report_vit_wallet_transaction_menu" string="Vit - Wallet transaction"
+         model="vit.wallet_transaction" report_type="qweb-pdf" 
+         file="vit.wallet_transaction"  name="E-Wallet.vit_wallet_transaction_report" />
+
+        <!-- document template -->
+        <template id="E-Wallet.vit_wallet_transaction_report_document" >
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="doc.with_context({'lang': lang})"/>
+                <div class="page">
+                    <h2>
+                        Wallet transaction: <span t-field="doc.name"/>
+                    </h2>
+                    <div class="row mt32 mb32">
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Trx date</strong>
+                            <p class="m-0" t-field="doc.trx_date" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Amount</strong>
+                            <p class="m-0" t-field="doc.amount" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Notes</strong>
+                            <p class="m-0" t-field="doc.notes" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Trx type</strong>
+                            <p class="m-0" t-field="doc.trx_type" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Amount curr</strong>
+                            <p class="m-0" t-field="doc.amount_curr" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Wallet</strong>
+                            <p class="m-0" t-field="doc.wallet_id"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Currency</strong>
+                            <p class="m-0" t-field="doc.currency_id"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Withdrawal</strong>
+                            <p class="m-0" t-field="doc.withdrawal_id"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Deposit</strong>
+                            <p class="m-0" t-field="doc.deposit_id"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Transfer</strong>
+                            <p class="m-0" t-field="doc.transfer_id"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+            </t>
+        </template>
+
+        <!-- main template -->
+        <template id="E-Wallet.vit_wallet_transaction_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-set="lang" t-value="doc.create_uid.lang"/>
+                    <t t-call="E-Wallet.vit_wallet_transaction_report_document" />
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

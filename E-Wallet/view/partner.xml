@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- tree view -->
+        <record id="view_res_partner_tree" model="ir.ui.view">
+            <field name="name">res_partner_tree</field>
+            <field name="model">res.partner</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Partner">
+                    <field name="balance" />
+                    <field name="account_number" />
+                    <field name="bank_account_id" />
+                </tree>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="view_res_partner_form" model="ir.ui.view">
+            <field name="name">res_partner_form</field>
+            <field name="model">res.partner</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Partner">
+                    <header>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Partner Name"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="balance" />
+                                <field name="account_number" />
+                            </group>
+                            <group>
+                                <field name="bank_account_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Deposits">
+                                <field name="deposit_ids"/>
+                            </page>
+                            <page string="Wallets">
+                                <field name="wallet_ids"/>
+                            </page>
+                            <page string="Transfers">
+                                <field name="transfer_ids"/>
+                            </page>
+                            <page string="Withdrawals">
+                                <field name="withdrawal_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search -->
+        <record id="view_res_partner_search" model="ir.ui.view">
+            <field name="name">res_partner</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Partner">
+
+                    <filter string="Balance" name="filter_by_balance" domain="[('balance','=','')]" />
+                    <filter string="Account number" name="filter_by_account_number" domain="[('account_number','=','')]" />
+                    <field name="balance" select="True"/>
+                    <field name="account_number" select="True"/>
+                    <field name="bank_account_id" select="True"/>
+                    <group string="Group By..">
+                        <filter string="Bank account" domain="[]" name="group_by_bank_account_id" context="{'group_by':'bank_account_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!-- kanban , to show image, please add image_small in the model -->
+        <record id="view_res_partner_kanban" model="ir.ui.view" >
+            <field name="name">res_partner</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <kanban version="7.0">
+                    <field name="id" />
+                    <field name="balance" />
+                    <field name="account_number" />
+                    <field name="bank_account_id" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open"><field name="name"/></a>
+                                    </h4>
+                                    <ul>
+
+                                        <li>
+                                            <span class="text-muted">Bank account</span> <field name="bank_account_id"></field>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <!-- calendar if a date field exists -->
+        <!-- graph -->
+        <record id="view_res_partner_graph" model="ir.ui.view">
+            <field name="name">res_partner</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <graph string="Partner" type="bar">
+                    <field name="bank_account_id"/>
+                </graph>
+            </field>
+        </record>
+        <!-- action window -->
+        <record id="action_res_partner" model="ir.actions.act_window">
+            <field name="name">Partner</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form,graph</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Partner
+                </p><p>
+                Click the Create button to add a new Partner
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_res_partner" name="Partner" parent="E-Wallet_config_menu" action="action_res_partner" sequence="20"/>
+    </data>
+</odoo>

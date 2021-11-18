@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- report qweb view -->
+        <report id="report_vit_wallet_menu" string="Vit - Wallet"
+         model="vit.wallet" report_type="qweb-pdf" 
+         file="vit.wallet"  name="E-Wallet.vit_wallet_report" />
+
+        <!-- document template -->
+        <template id="E-Wallet.vit_wallet_report_document" >
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="doc.with_context({'lang': lang})"/>
+                <div class="page">
+                    <h2>
+                        Wallet: <span t-field="doc.name"/>
+                    </h2>
+                    <div class="row mt32 mb32">
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Balance</strong>
+                            <p class="m-0" t-field="doc.balance" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Wallet type</strong>
+                            <p class="m-0" t-field="doc.wallet_type" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Deposit address</strong>
+                            <p class="m-0" t-field="doc.deposit_address" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Balance network</strong>
+                            <p class="m-0" t-field="doc.balance_network" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Partner</strong>
+                            <p class="m-0" t-field="doc.partner_id"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Currency</strong>
+                            <p class="m-0" t-field="doc.currency_id"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+                <h2>Wallet transactions</h2>
+                <table class="table table-sm o_main_table" name="wallet_transaction_ids_table">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Trx date</td>
+                            <td>Amount</td>
+                            <td>Notes</td>
+                            <td>Trx type</td>
+                            <td>Amount curr</td>
+                            <td>Wallet</td>
+                            <td>Currency</td>
+                            <td>Withdrawal</td>
+                            <td>Deposit</td>
+                            <td>Transfer</td>
+                        </tr>
+                    </thead>
+                    <tbody class="wallet_transaction_ids_tbody">
+                        <tr t-foreach="doc.wallet_transaction_ids" t-as="line">
+                            <td><span t-field="line.name" /></td>
+                            <td><span t-field="line.trx_date" /></td>
+                            <td><span t-field="line.amount" /></td>
+                            <td><span t-field="line.notes" /></td>
+                            <td><span t-field="line.trx_type" /></td>
+                            <td><span t-field="line.amount_curr" /></td>
+                            <td><span t-field="line.wallet_id" /></td>
+                            <td><span t-field="line.currency_id" /></td>
+                            <td><span t-field="line.withdrawal_id" /></td>
+                            <td><span t-field="line.deposit_id" /></td>
+                            <td><span t-field="line.transfer_id" /></td>
+                        </tr> <!-- foreach-->
+                    </tbody>
+                </table>
+                <div class="oe_structure"/>
+            </t>
+        </template>
+
+        <!-- main template -->
+        <template id="E-Wallet.vit_wallet_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-set="lang" t-value="doc.create_uid.lang"/>
+                    <t t-call="E-Wallet.vit_wallet_report_document" />
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

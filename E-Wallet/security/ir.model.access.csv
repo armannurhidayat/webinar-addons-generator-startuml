@@ -1,0 +1,16 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_user_vit_deposit,access_user_vit_deposit,model_vit_deposit,E-Wallet.group_e-wallet_user,1,0,0,0
+access_manager_vit_deposit,access_manager_vit_deposit,model_vit_deposit,E-Wallet.group_e-wallet_manager,1,1,1,1
+access_admin_vit_deposit,access_admin_vit_deposit,model_vit_deposit,base.group_system,1,1,1,1
+access_user_vit_wallet,access_user_vit_wallet,model_vit_wallet,E-Wallet.group_e-wallet_user,1,0,0,0
+access_manager_vit_wallet,access_manager_vit_wallet,model_vit_wallet,E-Wallet.group_e-wallet_manager,1,1,1,1
+access_admin_vit_wallet,access_admin_vit_wallet,model_vit_wallet,base.group_system,1,1,1,1
+access_user_vit_transfer,access_user_vit_transfer,model_vit_transfer,E-Wallet.group_e-wallet_user,1,0,0,0
+access_manager_vit_transfer,access_manager_vit_transfer,model_vit_transfer,E-Wallet.group_e-wallet_manager,1,1,1,1
+access_admin_vit_transfer,access_admin_vit_transfer,model_vit_transfer,base.group_system,1,1,1,1
+access_user_vit_withdrawal,access_user_vit_withdrawal,model_vit_withdrawal,E-Wallet.group_e-wallet_user,1,0,0,0
+access_manager_vit_withdrawal,access_manager_vit_withdrawal,model_vit_withdrawal,E-Wallet.group_e-wallet_manager,1,1,1,1
+access_admin_vit_withdrawal,access_admin_vit_withdrawal,model_vit_withdrawal,base.group_system,1,1,1,1
+access_user_vit_wallet_transaction,access_user_vit_wallet_transaction,model_vit_wallet_transaction,E-Wallet.group_e-wallet_user,1,0,0,0
+access_manager_vit_wallet_transaction,access_manager_vit_wallet_transaction,model_vit_wallet_transaction,E-Wallet.group_e-wallet_manager,1,1,1,1
+access_admin_vit_wallet_transaction,access_admin_vit_wallet_transaction,model_vit_wallet_transaction,base.group_system,1,1,1,1

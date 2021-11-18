@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- report qweb view -->
+        <report id="report_res_partner_menu" string="Vit - Partner"
+         model="res.partner" report_type="qweb-pdf" 
+         file="res.partner"  name="E-Wallet.res_partner_report" />
+
+        <!-- document template -->
+        <template id="E-Wallet.res_partner_report_document" >
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="doc.with_context({'lang': lang})"/>
+                <div class="page">
+                    <h2>
+                        Partner: <span t-field="doc.name"/>
+                    </h2>
+                    <div class="row mt32 mb32">
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Balance</strong>
+                            <p class="m-0" t-field="doc.balance" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Account number</strong>
+                            <p class="m-0" t-field="doc.account_number" />
+                        </div>
+                        <div class="col-auto mw-100 mb-2">
+                            <strong>Bank account</strong>
+                            <p class="m-0" t-field="doc.bank_account_id"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+                <h2>Deposits</h2>
+                <table class="table table-sm o_main_table" name="deposit_ids_table">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Amount</td>
+                            <td>Notes</td>
+                            <td>Trx date</td>
+                            <td>State</td>
+                            <td>Deposit type</td>
+                            <td>Amount curr</td>
+                            <td>Ref</td>
+                            <td>Payment link</td>
+                            <td>Partner</td>
+                            <td>Currency</td>
+                        </tr>
+                    </thead>
+                    <tbody class="deposit_ids_tbody">
+                        <tr t-foreach="doc.deposit_ids" t-as="line">
+                            <td><span t-field="line.name" /></td>
+                            <td><span t-field="line.amount" /></td>
+                            <td><span t-field="line.notes" /></td>
+                            <td><span t-field="line.trx_date" /></td>
+                            <td><span t-field="line.state" /></td>
+                            <td><span t-field="line.deposit_type" /></td>
+                            <td><span t-field="line.amount_curr" /></td>
+                            <td><span t-field="line.ref" /></td>
+                            <td><span t-field="line.payment_link" /></td>
+                            <td><span t-field="line.partner_id" /></td>
+                            <td><span t-field="line.currency_id" /></td>
+                        </tr> <!-- foreach-->
+                    </tbody>
+                </table>
+                <div class="oe_structure"/>
+                <h2>Wallets</h2>
+                <table class="table table-sm o_main_table" name="wallet_ids_table">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Balance</td>
+                            <td>Wallet type</td>
+                            <td>Deposit address</td>
+                            <td>Balance network</td>
+                            <td>Partner</td>
+                            <td>Currency</td>
+                        </tr>
+                    </thead>
+                    <tbody class="wallet_ids_tbody">
+                        <tr t-foreach="doc.wallet_ids" t-as="line">
+                            <td><span t-field="line.name" /></td>
+                            <td><span t-field="line.balance" /></td>
+                            <td><span t-field="line.wallet_type" /></td>
+                            <td><span t-field="line.deposit_address" /></td>
+                            <td><span t-field="line.balance_network" /></td>
+                            <td><span t-field="line.partner_id" /></td>
+                            <td><span t-field="line.currency_id" /></td>
+                        </tr> <!-- foreach-->
+                    </tbody>
+                </table>
+                <div class="oe_structure"/>
+                <h2>Transfers</h2>
+                <table class="table table-sm o_main_table" name="transfer_ids_table">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Trx date</td>
+                            <td>Notes</td>
+                            <td>State</td>
+                            <td>Destination account number</td>
+                            <td>Amount</td>
+                            <td>Amount curr</td>
+                            <td>Currency</td>
+                            <td>Partner</td>
+                            <td>Destination partner</td>
+                        </tr>
+                    </thead>
+                    <tbody class="transfer_ids_tbody">
+                        <tr t-foreach="doc.transfer_ids" t-as="line">
+                            <td><span t-field="line.name" /></td>
+                            <td><span t-field="line.trx_date" /></td>
+                            <td><span t-field="line.notes" /></td>
+                            <td><span t-field="line.state" /></td>
+                            <td><span t-field="line.destination_account_number" /></td>
+                            <td><span t-field="line.amount" /></td>
+                            <td><span t-field="line.amount_curr" /></td>
+                            <td><span t-field="line.currency_id" /></td>
+                            <td><span t-field="line.partner_id" /></td>
+                            <td><span t-field="line.destination_partner_id" /></td>
+                        </tr> <!-- foreach-->
+                    </tbody>
+                </table>
+                <div class="oe_structure"/>
+                <h2>Withdrawals</h2>
+                <table class="table table-sm o_main_table" name="withdrawal_ids_table">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Amount</td>
+                            <td>Trx date</td>
+                            <td>State</td>
+                            <td>Withdrawal type</td>
+                            <td>Amount curr</td>
+                            <td>Notes</td>
+                            <td>Ref</td>
+                            <td>Currency</td>
+                            <td>Partner</td>
+                        </tr>
+                    </thead>
+                    <tbody class="withdrawal_ids_tbody">
+                        <tr t-foreach="doc.withdrawal_ids" t-as="line">
+                            <td><span t-field="line.name" /></td>
+                            <td><span t-field="line.amount" /></td>
+                            <td><span t-field="line.trx_date" /></td>
+                            <td><span t-field="line.state" /></td>
+                            <td><span t-field="line.withdrawal_type" /></td>
+                            <td><span t-field="line.amount_curr" /></td>
+                            <td><span t-field="line.notes" /></td>
+                            <td><span t-field="line.ref" /></td>
+                            <td><span t-field="line.currency_id" /></td>
+                            <td><span t-field="line.partner_id" /></td>
+                        </tr> <!-- foreach-->
+                    </tbody>
+                </table>
+                <div class="oe_structure"/>
+            </t>
+        </template>
+
+        <!-- main template -->
+        <template id="E-Wallet.res_partner_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-set="lang" t-value="doc.create_uid.lang"/>
+                    <t t-call="E-Wallet.res_partner_report_document" />
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

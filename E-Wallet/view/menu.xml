@@ -1,0 +1,7 @@
+<odoo>
+	<data>
+		<menuitem id="E-Wallet_top_menu" name="e-wallet" sequence="20" web_icon="E-Wallet,static/description/icon.png" />
+		<menuitem id="E-Wallet_sub_menu" name="Operations" sequence="40" parent="E-Wallet_top_menu" />
+		<menuitem id="E-Wallet_config_menu" name="Configurations" sequence="50" parent="E-Wallet_top_menu" />
+	</data>
+</odoo>
